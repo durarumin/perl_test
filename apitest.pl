@@ -23,7 +23,5 @@ foreach my $item (@json){
 };
 
 my $djson = decode_json($line);
-
 print Dumper $djson;
-
-
+print "$djson->{error}->{errors}->[0]->{domain}\n"; 

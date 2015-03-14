@@ -2,14 +2,14 @@
  "error": {
   "errors": [
    {
-    "domain1": "test1",
-    "reason1": "notFound",
-    "message1": "Not Found"
+    "domain": "test1",
+    "reason": "notFound",
+    "message": "Not Found"
    },
    {
-   "domain2": "test2",
-   "reason2": "OK",
-   "message2": "success"
+   "domain": "test2",
+   "reason": "OK",
+   "message": "success"
    }
  ],
   "code": 404,
