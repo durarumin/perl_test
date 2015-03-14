@@ -1,0 +1,18 @@
+{
+ "error": {
+  "errors": [
+   {
+    "domain1": "test1",
+    "reason1": "notFound",
+    "message1": "Not Found"
+   },
+   {
+   "domain2": "test2",
+   "reason2": "OK",
+   "message2": "success"
+   }
+ ],
+  "code": 404,
+  "message": "Not Found"
+ }
+}

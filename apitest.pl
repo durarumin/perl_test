@@ -3,7 +3,27 @@
 use strict;
 use warnings;
 use Data::Dumper;
+use JSON 'decode_json';
 
-my @vars = {"var1", 23, "var2", 69};
+my $file = shift;
+unless ($file){
+    die "Usage: filename"   
+}
 
-print Dumper @vars;
+open my $fh, '<', $file or die $!; 
+
+my @json;
+@json = <$fh>;
+
+close($fh);
+my $line;
+
+foreach my $item (@json){
+    $line = "$line$item";
+};
+
+my $djson = decode_json($line);
+
+print Dumper $djson;
+
+
