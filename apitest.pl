@@ -5,23 +5,28 @@ use warnings;
 use Data::Dumper;
 use JSON 'decode_json';
 
+#ファイルの取得はapiシミュレートのため
 my $file = shift;
 unless ($file){
     die "Usage: filename"   
 }
 
-open my $fh, '<', $file or die $!; 
+my $list = decode_json(json_generate($file));
 
-my @json;
-@json = <$fh>;
+print Dumper $list;
+print "$list->{error}->{errors}->[0]->{domain}\n"; 
 
-close($fh);
-my $line;
+#jsonを取得する。apiでの取得をシミュレート
+sub json_generate{
+    my $file = shift;
+ 
+    open my $fh, '<', $file or die $!; 
+    my @json = <$fh>;
+    close($fh);
 
-foreach my $item (@json){
-    $line = "$line$item";
-};
-
-my $djson = decode_json($line);
-print Dumper $djson;
-print "$djson->{error}->{errors}->[0]->{domain}\n"; 
+    my $line;
+        foreach my $item (@json){
+        $line = "$line$item";
+    };
+    return $line;
+} 
