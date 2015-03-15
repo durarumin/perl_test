@@ -12,9 +12,20 @@ unless ($file){
 }
 
 my $list = decode_json(json_generate($file));
+my @domains = get_domain_list($list->{error}->{errors});
 
-print Dumper $list;
-print "$list->{error}->{errors}->[0]->{domain}\n"; 
+print Dumper @domains;
+
+#domainのみを取り出す
+sub get_domain_list{
+    my $list_ref = shift;
+    my @domains;
+
+    foreach my $item (@$list_ref){
+        push(@domains, $item->{domain});
+    }
+    return @domains;
+}    
 
 #jsonを取得する。apiでの取得をシミュレート
 sub json_generate{
