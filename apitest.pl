@@ -14,21 +14,39 @@ unless ($file){
 
 my $list = decode_json(json_generate($file));
 my @domains = get_domain_list($list->{error}->{errors});
+my @origin = ("test1", "test3", "test4");
 
-print Dumper @domains;
-
-my @origin = ("test1", "test3");
-
+#use List::Compare
 my $lc = List::Compare->new(\@domains, \@origin);
-
 my @domainlist = $lc->get_Lonly;
 my @originlist = $lc->get_Ronly;
 
-print "domains list\n";
-print Dumper @domainlist;
+#print "domains list\n";
+#print Dumper @domainlist;
 
-print "original list\n";
-print Dumper @originlist;
+#print "original list\n";
+#print Dumper @originlist;
+
+#other
+my %seen;
+my @diff;
+
+#参照元リスト
+#先に参照元リストをハッシュに入れておく
+foreach my $item(@domains){
+    $seen{$item} = 1;
+}
+
+#検査したいリスト
+#A-Bの差分（Aにしかない）リストが抽出できる。
+#Bにしかないデータは抽出できない
+foreach my $item (@origin){
+    unless($seen{$item}){
+        push(@diff, $item);
+    }
+}
+print "diff list\n";
+print Dumper @diff;
 
 #domainのみを取り出す
 sub get_domain_list{
